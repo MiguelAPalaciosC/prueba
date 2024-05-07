@@ -1,4 +1,4 @@
-# <p align="center">Desafío screenmatch de la inmersión java</p>
+# <p align="center">Actividad bases de datos 1</p>
 
 *Este proyecto esta conformado por 2 partes y 2 Branches*
 - **AULA 1: master branch.**
@@ -11,10 +11,7 @@ Además, verifica una condición usando `if` y `else`.
 ---
 
 ## Desafío
-    - Calcular la evaluación media de una película con datos obtenidos por los usuarios usando el ciclo while;
-    - Subir sus proyectos a GitHub y compartirlos;
-    - Crear un README para su repositorio que hable sobre las especificaciones del proyecto y que muestre un gif o video del funcionamiento del programa.
-    
+    - Creae una base de datos no sql
 ---
 
 ## Uso de condicionales IF Y ELSE
