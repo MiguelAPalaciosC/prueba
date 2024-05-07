@@ -1,6 +1,7 @@
 # <p align="center">Actividad bases de datos 1</p>
 
-<video src="https://drive.google.com/file/d/1YCK1qvQPRxhu6w1P2SpGlTOeCMW7RWrY/view?usp=drive_link"/>
+https://github.com/MiguelAPalaciosC/prueba/assets/42805810/53c426bd-6b3c-4968-892c-76a019f89db4
+
 
 <img src="https://github.com/MiguelAPalaciosC/prueba/assets/42805810/9500f77f-ec9d-4b9d-a651-b7fc8c97e4d8" alt="Paso 5"/>
 
