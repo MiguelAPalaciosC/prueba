@@ -1,6 +1,6 @@
 # <p align="center">Actividad bases de datos 1</p>
 https://drive.google.com/file/d/1YCK1qvQPRxhu6w1P2SpGlTOeCMW7RWrY/view?usp=drive_link
-[![Alt text](https://img.youtube.com/vi/dBBAliEl4PWut4r5/0.jpg)](https://www.youtube.com/watch?v=dBBAliEl4PWut4r5)
+[<img src="https://i.ytimg.com/vi/Hc79sDi3f0U/maxresdefault.jpg" width="50%">](https://www.youtube.com/watch?v=Hc79sDi3f0U "Now in Android: 55")
 
 <img src="https://github.com/MiguelAPalaciosC/prueba/assets/42805810/9500f77f-ec9d-4b9d-a651-b7fc8c97e4d8" alt="Paso 5"/>
 
