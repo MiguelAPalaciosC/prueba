@@ -1,7 +1,7 @@
 # <p align="center">Actividad bases de datos 1</p>
 
 <video src='https://www.youtube.com/watch?v=-s2zGgPqJXA.mp4' width=180/>
-<img src="https://github.com/MiguelAPalaciosC/prueba/assets/42805810/9bfe69c0-eb71-4e1f-b8bc-33c676129895.jpg" alt="Paso 5"/>
+<img src="https://github.com/MiguelAPalaciosC/prueba/assets/42805810/9bfe69c0-eb71-4e1f-b8bc-33c676129895" alt="Paso 5"/>
 *Este proyecto esta conformado por 2 partes y 2 Branches*
 - **AULA 1: master branch.**
 - **AULA 2: aula-2 branch.**
