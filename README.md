@@ -1,5 +1,7 @@
 # <p align="center">Actividad bases de datos 1</p>
 
+<video src='https://www.youtube.com/watch?v=-s2zGgPqJXA.mp4' width=180/>
+<img src="![image](https://github.com/MiguelAPalaciosC/prueba/assets/42805810/9bfe69c0-eb71-4e1f-b8bc-33c676129895)"/>
 *Este proyecto esta conformado por 2 partes y 2 Branches*
 - **AULA 1: master branch.**
 - **AULA 2: aula-2 branch.**
@@ -37,7 +39,7 @@ El bucle `while` se usa para solicitar al usuario las calificaciones de una pel√
 
 <p align="center">
   <img src="https://live.staticflickr.com/65535/53691786675_4c725cfa23.jpg" alt="Paso 5"/>
-  <video src='https://www.youtube.com/watch?v=-s2zGgPqJXA.mp4' width=180/>
+  
 </p>
 
 ## Tecnolog√≠as utilizadas durante el curso
