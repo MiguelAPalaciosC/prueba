@@ -37,7 +37,7 @@ El bucle `while` se usa para solicitar al usuario las calificaciones de una pel√
 
 <p align="center">
   <img src="https://live.staticflickr.com/65535/53691786675_4c725cfa23.jpg" alt="Paso 5"/>
-  [ https://www.youtube.com/watch?v=-s2zGgPqJXA](https://www.youtube.com/watch?v=-s2zGgPqJXA)
+  <video src='https://www.youtube.com/watch?v=-s2zGgPqJXA' width=180/>
 </p>
 
 ## Tecnolog√≠as utilizadas durante el curso
