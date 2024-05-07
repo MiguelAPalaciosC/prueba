@@ -1,5 +1,7 @@
 # <p align="center">Actividad bases de datos 1</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/-s2zGgPqJXA?si=FiyyIgQlJEECFa-h" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+https://drive.google.com/file/d/1YCK1qvQPRxhu6w1P2SpGlTOeCMW7RWrY/view?usp=drive_link
+[![Alt text](https://img.youtube.com/vi/dBBAliEl4PWut4r5/0.jpg)](https://www.youtube.com/watch?v=dBBAliEl4PWut4r5)
+
 <img src="https://github.com/MiguelAPalaciosC/prueba/assets/42805810/9500f77f-ec9d-4b9d-a651-b7fc8c97e4d8" alt="Paso 5"/>
 
 *Este proyecto esta conformado por 2 partes y 2 Branches*
