@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Mi Página</title>
+	<link rel="stylesheet" th:href="@{/bootstrap-5.0.2/dist/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/icons/font/bootstrap-icons.min.css}">
+	<link rel="stylesheet" th:href="@{/select2/dist/css/select2.min.css}">
+	<link rel="stylesheet" th:href="@{/select2/dist/css/select2-bootstrap-5-theme.min.css}">
+	<link rel="stylesheet" th:href="@{/css/registro/style.css}">
+	<link rel="stylesheet" th:href="@{/css/tablas/style.css}">
+	<link rel="stylesheet" th:href="@{/css/public/headers.css}">
+	<link rel="stylesheet" th:href="@{/css/public/form-validation.css}">
+	<link rel="stylesheet" th:href="@{/css/public/sweetalert2.min.css}">
+	<link rel="stylesheet" th:href="@{/datatable/dataTables.dataTables.css}">
+	<!-- <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.4.0/css/fixedHeader.dataTables.min.css"> -->
+	<style>
+		table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+
+		th,
+		td {
+			border: 1px solid #ddd;
+			padding: 10px;
+			text-align: center;
+		}
+
+		tr {
+			cursor: pointer;
+			transition: background-color 0.2s;
+		}
+
+		tr:hover {
+			background-color: #f1f1f1;
+		}
+
+		.selected {
+			background-color: #4CAF50 !important;
+			color: white;
+		}
+	</style>
+</head>
+
+<body>
+	<div th:insert="~{/inset/header.html::header-app}" id="header"></div>
+	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+		<symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+			<path
+				d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+		</symbol>
+		<symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+			<path
+				d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+		</symbol>
+		<symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+			<path
+				d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+		</symbol>
+	</svg>
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">Gestionar</li>
+
+			<!-- Siempre mostrar "Dosimetros", si hay empresa se mantiene el enlace -->
+			<li class="breadcrumb-item">
+				<a href="/gestion3/dosimetros">Dosimetros</a>
+			</li>
+
+			<!-- Mostrar empresa solo si existe -->
+			<li class="breadcrumb-item" th:if="${id_empresa != null}" aria-current="page">
+				<a th:href="'/gestion3/dosimetros/' + ${id_empresa}" th:text="${empresa.razon_social_empresa}"></a>
+			</li>
+		</ol>
+	</nav>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<h2>Dosimetros registrados</h2>
+			</div>
+			<div class="col-md-2 btnDosimetro">
+				<a class="btn btn-success w-100" id="btnNuevo" th:href="@{#}"><i class="bi bi-plus-square"></i>
+					Nuevo</a>
+			</div>
+			<div class="col-md-2 btnDosimetro">
+				<a class="btn btn-info w-100" id="btnEditarEmpresa" th:href="@{#}"><i class="bi bi-pencil"></i>
+					Editar</a>
+			</div>
+			<div class="col-md-2 btnDosimetro" th:if="${not user.roles.?[nombre == 'ADMIN'].isEmpty()}">
+				<button class="btn btn-danger w-100" id="btnEliminar"><i class="bi bi-trash"></i> Borrar</button>
+			</div>
+			<div class="col-md-12">
+				<input type="hidden" id="empresa_seleccionada" th:value="${id_empresa}">
+				<h5 for="form-label">Seleccionar empresa</h5>
+				<select name="id_empresa" id="empresa" class="form-select mt-2">
+					<option value="" hidden>Seleccione una opción</option>
+					<option th:each="empresa_select : ${empresas}" th:value="${empresa_select.id_empresa}"
+						th:text="${empresa_select.codigo_interno_empresa} + ' - ' + ${empresa_select.razon_social_empresa} + ' - ' + ${empresa_select.nit_empresa}">
+					</option>
+				</select>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="toast-container position-absolute top-5 end-0 p-3">
+			<div th:if="${param.exito}" class="toast text-white bg-success" role="alert" aria-live="assertive"
+				aria-atomic="true">
+				<div class="toast-header">
+					<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+						<use xlink:href="#check-circle-fill" />
+					</svg>
+					<strong class="me-auto">Éxito</strong>
+					<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+				</div>
+				<div class="toast-body">
+					Información del dosimetro guardada exitosamente
+				</div>
+			</div>
+
+			<div th:if="${param.error}" class="toast text-white bg-danger" role="alert" aria-live="assertive"
+				aria-atomic="true">
+				<div class="toast-header">
+					<i class="bi bi-x-circle" style="font-size: xx-large;"></i>
+					<strong class="me-auto">Error</strong>
+					<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+				</div>
+				<div class="toast-body">
+					Hubo un error al guardar la información del dosimetro
+				</div>
+			</div>
+
+			<div th:if="${param.exitoUpdate}" class="toast text-white bg-warning" role="alert" aria-live="assertive"
+				aria-atomic="true">
+				<div class="toast-header">
+					<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+						<use xlink:href="#check-circle-fill" />
+					</svg>
+					<strong class="me-auto">Éxito</strong>
+					<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+				</div>
+				<div class="toast-body">
+					Información del dosimetro actulizada exitosamente
+				</div>
+			</div>
+
+			<div th:if="${param.errorUpdate}" class="toast text-white bg-danger" role="alert" aria-live="assertive"
+				aria-atomic="true">
+				<div class="toast-header">
+					<i class="bi bi-x-circle" style="font-size: xx-large;"></i>
+					<strong class="me-auto">Error</strong>
+					<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+				</div>
+				<div class="toast-body">
+					Hubo un error al guardar la información del dosimetro
+				</div>
+			</div>
+
+			<div th:if="${param.exitoDelete}" class="toast text-white bg-danger" role="alert" aria-live="assertive"
+				aria-atomic="true">
+				<div class="toast-header">
+					<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+						<use xlink:href="#check-circle-fill" />
+					</svg>
+					<strong class="me-auto">Éxito</strong>
+					<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+				</div>
+				<div class="toast-body">
+					Dosimetro eliminado exitosamente
+				</div>
+			</div>
+
+			<div th:if="${param.errorDelete}" class="toast text-white bg-danger" role="alert" aria-live="assertive"
+				aria-atomic="true">
+				<div class="toast-header">
+					<i class="bi bi-x-circle" style="font-size: xx-large;"></i>
+					<strong class="me-auto">Error</strong>
+					<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+				</div>
+				<div class="toast-body">
+					Hubo un error al eliminar el dosimetro
+				</div>
+			</div>
+
+			<div th:if="${param.relacionado}" class="toast text-white bg-warning" role="alert" aria-live="assertive"
+				aria-atomic="true">
+				<div class="toast-header">
+					<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Error:">
+						<use xlink:href="#exclamation-triangle-fill" />
+					</svg>
+					<strong class="me-auto">Advertencia</strong>
+					<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+				</div>
+				<div class="toast-body">
+					Para eliminar el dosimetro, primero elimina o actualiza las relaciones existentes.
+				</div>
+			</div>
+		</div>
+
+		<div id="valorSeleccionado">Selecciona una fila</div>
+		<div id="cantidad mostrada" style="text-align: end;"><b>Se visualizan:</b> <span
+				class="numero_resultado">0</span>
+			resultados</div>
+		<table class="table table-striped" id="miTabla">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Cedula</th>
+					<th>Trabajador</th>
+					<th>DOS</th>
+					<th>TD</th>
+					<th>EST</th>
+					<th>CAR</th>
+					<th>PRAC</th>
+					<th>RAD</th>
+					<th>PER</th>
+					<th>CON</th>
+					<th>FECHA INICIO</th>
+					<th>FECHA FIN</th>
+				</tr>
+			</thead>
+			<thead>
+				<tr>
+					<th></th>
+					<th><input type="text" class="form-control" id="buscar1" placeholder="" value="" required></th>
+					<th><input type="text" class="form-control" id="buscar2" placeholder="" value="" required></th>
+					<th><input type="text" class="form-control" id="buscar3" placeholder="" value="" required></th>
+					<th><input type="text" class="form-control" id="buscar4" placeholder="" value="" required></th>
+					<th><input type="text" class="form-control" id="buscar5" placeholder="" value="" required></th>
+					<th><input type="text" class="form-control" id="buscar6" placeholder="" value="" required></th>
+					<th><input type="text" class="form-control" id="buscar7" placeholder="" value="" required></th>
+					<th><input type="text" class="form-control" id="buscar8" placeholder="" value="" required></th>
+					<th><input type="text" class="form-control" id="buscar9" placeholder="" value="" required></th>
+					<th><input type="text" class="form-control" id="buscar10" placeholder="" value="" required></th>
+					<th><input type="text" class="form-control" id="buscar11" placeholder="" value="" required></th>
+					<th><input type="text" class="form-control" id="buscar12" placeholder="" value="" required></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="dosimetro, loop : ${dosimetros}" th:data-valor="${dosimetro.id_dosimetro}">
+					<td style="text-align: center;" th:text="${loop.count}"></td>
+					<td style="text-align: right;" th:text="${dosimetro.cedula_trabajador}"></td>
+					<td style="text-align: left;" th:text="${dosimetro.nombre_trabajador}">
+					</td>
+					<td style="text-align: center;" th:text="${dosimetro.codigo_dosimetro}"></td>
+					<td style="text-align: center;" th:text="${dosimetro.tipo_dosimetro}"></td>
+					<td th:text="${dosimetro.estado_dosimetro}"></td>
+					<td th:text="${dosimetro.cargo}"></td>
+					<td th:text="${dosimetro.practica}"></td>
+					<td th:text="${dosimetro.radiacion}"></td>
+					<td style="text-align: center;" th:text="${dosimetro.periodo_uso}"></td>
+					<td style="text-align: center;" th:text="${dosimetro.numero_contrato}"></td>
+					<td style="text-align: center;" th:text="${dosimetro.fecha_inicio}"></td>
+					<td style="text-align: center;" th:text="${dosimetro.fecha_fin}"></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- Controles de paginación -->
+		<div class="row">
+			<div class="col-md-auto ms-auto">
+				<div th:if="${totalPages > 1}">
+					<nav>
+						<ul class="pagination">
+							<!-- Botón "Anterior" -->
+							<li th:class="${currentPage == 0} ? 'disabled'">
+								<a th:href="@{/gestion/empresas(page=${currentPage - 1}, size=${pageSize})}"
+									class="btn btn-secondary m-2">Anterior</a>
+							</li>
+
+							<!-- Mostrar solo 5 botones -->
+							<li th:each="i : ${#numbers.sequence(
+									(currentPage - 2) > 0 ? (currentPage - 2) : 0, 
+									(currentPage + 2) < (totalPages - 1) ? (currentPage + 2) : (totalPages - 1)
+								)}" th:class="${currentPage == i} ? 'active'">
+								<a th:href="@{/gestion/empresas(page=${i}, size=${pageSize})}" th:text="${i + 1}"
+									class="btn btn-secondary m-2"
+									th:style="${currentPage == i} ? 'background-color: #959595; box-shadow: rgba(130, 138, 145, 0.298) 0px 0px 0px 4.37568px;'"></a>
+							</li>
+
+							<!-- Botón "Siguiente" -->
+							<li th:class="${currentPage + 1 >= totalPages} ? 'disabled'">
+								<a th:href="@{/gestion/empresas(page=${currentPage + 1}, size=${pageSize})}"
+									class="btn btn-secondary m-2">Siguiente</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+
+	<script th:src="@{/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/js/public/jquery.js}"></script>
+	<script th:src="@{/select2/dist/js/select2.min.js}"></script>
+	<script th:src="@{/datatable/dataTables.js}"></script>
+	<script th:src="@{/js/public/form-validation.js}"></script>
+	<script th:src="@{/js/public/sweetalert2.all.min.js}"></script>
+	<script th:src="@{/js/dosimetro/empresas.js}"></script>
+
+</body>
+
+</html>

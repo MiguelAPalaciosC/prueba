@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Mi Página</title>
+
+	<link rel="stylesheet" th:href="@{/bootstrap-5.0.2/dist/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/select2/dist/css/select2.min.css}">
+	<link rel="stylesheet" th:href="@{/select2/dist/css/select2-bootstrap-5-theme.min.css}">
+	<link rel="stylesheet" th:href="@{/icons/font/bootstrap-icons.min.css}">
+	<link rel="stylesheet" th:href="@{/css/registro/style.css}">
+	<link rel="stylesheet" th:href="@{/css/public/headers.css}">
+	<link rel="stylesheet" th:href="@{/css/public/form-validation.css}">
+	<link rel="stylesheet" th:href="@{/css/public/sweetalert2.min.css}">
+	<style>
+		a {
+			text-decoration: auto
+		}
+	</style>
+</head>
+
+<body>
+	<div th:insert="~{/inset/header.html::header-app}"></div>
+
+	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+		<symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+			<path
+				d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+		</symbol>
+		<symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+			<path
+				d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+		</symbol>
+		<symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+			<path
+				d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+		</symbol>
+	</svg>
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">Gestionar</li>
+			<li class="breadcrumb-item" aria-current="page"><a href="/gestion/empresas">Empresas</a></li>
+			<li class="breadcrumb-item" aria-current="page"><a th:href="'/gestion/empresa/' + ${empresa.id_empresa}" th:text="${empresa.codigo_interno_empresa} + ' - ' + ${empresa.razon_social_empresa}"></a></li>
+		</ol>
+	</nav>
+	<section class="py-2">
+		<div class="container mt-2">
+
+			<div class="toast-container position-absolute top-5 end-0 p-3">
+	
+				<div th:if="${param.error}" class="toast text-white bg-danger" role="alert" aria-live="assertive"
+					aria-atomic="true">
+					<div class="toast-header">
+						<i class="bi bi-x-circle" style="font-size: xx-large;"></i>
+						<strong class="me-auto">Error</strong>
+						<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+					</div>
+					<div class="toast-body">
+						Hubo un error al registrar la empresa
+					</div>
+				</div>
+			</div>
+
+			<form class="needs-validation" novalidate onsubmit="return verificarContacto()"
+				th:action="@{/gestion/actualizarEmpresa/{id}(id=${empresa.id_empresa})}" method="post">
+				<div class="row d-flex align-items-center justify-content-center">
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-md-9">
+								<h2 class="mb-3">Actualización de empresa</h2>
+							</div>
+							<div class="col-md-3">
+								<button class="w-100 btn btn-primary" type="submit"><i class="bi bi-arrow-repeat"></i> Actualizar</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 div-formulario mt-2">
+						<input type="hidden" id="empresa" th:value="${empresa.id_empresa}">
+						<div class="row g-3">
+							<div class="col-sm-5">
+								<label for="firstName" class="form-label">Código empresa</label>
+								<input type="number" class="form-control" id="codigo" name="codigo" placeholder=""
+									th:value="${empresa.codigo_interno_empresa}" readonly maxlength="4">
+								<div class="invalid-feedback">
+									Se requiere un codigo de la empresa valido.
+								</div>
+								<div class="invalid-id" style="display: none; font-weight: bold; color: brown;">
+									Este código ya se encuentra registrado, ingrese uno nuevo.
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<label for="firstName" class="form-label">NIT/CC</label>
+								<input type="text" class="form-control" id="nit" placeholder=""
+									th:value="${empresa.nit_empresa}" required>
+								<input type="hidden" name="nit" id="nitHidden" th:value="${empresa.nit_empresa}">
+								<div class="invalid-feedback">
+									Se requiere un NIT valido.
+								</div>
+							</div>
+							<div class="col-sm-1" style="display: flex; align-items: flex-end;">
+								<label for="" class="form-label"></label>
+								<button type="button" class="btn btn-primary w-100" id="btnCopiarNIT"><i
+										class="bi bi-copy"></i></button>
+								<div class="invalid-feedback"></div>
+							</div>
+							<div class="col-sm-2">
+								<label for="firstName" class="form-label">DV</label>
+								<input type="number" class="form-control" id="dv" name="dv" placeholder=""
+									th:value="${empresa.digito_verificacion}">
+								<div class="invalid-feedback">
+									Se requiere un dígito de verificación valida.
+								</div>
+							</div>
+							<div class="col-sm-12">
+								<label for="firstName" class="form-label">Razón social</label>
+								<input type="text" class="form-control" name="razon_social" placeholder=""
+									th:value="${empresa.razon_social_empresa}" required>
+								<div class="invalid-feedback">
+									Se requiere una razón social valida.
+								</div>
+							</div>
+
+							<div class="col-sm-8">
+								<label for="lastName" class="form-label">Dirección</label>
+								<input type="text" class="form-control" name="direccion" placeholder=""
+									th:value="${empresa.direccion_empresa}" required>
+								<div class="invalid-feedback">
+									Se requiere una Dirección valida.
+								</div>
+							</div>
+
+							<div class="col-4">
+								<label for="username" class="form-label">Teléfono</label>
+								<div class="input-group has-validation">
+									<span class="input-group-text">#</span>
+									<input type="text" class="form-control" name="telefono" placeholder="" required
+										th:value="${empresa.telefono_empresa}">
+									<div class="invalid-feedback">
+										Se requiere un numero telefonico valido.
+									</div>
+								</div>
+							</div>
+
+							<div class="col-6">
+								<label for="address" class="form-label">Celular</label>
+								<input type="number" class="form-control" name="celular" placeholder="310 ### ####"
+									th:value="${empresa.celular_empresa}" required>
+								<div class="invalid-feedback">
+									Se requiere un numero celular valido.
+								</div>
+							</div>
+
+							<div class="col-6">
+								<label for="address2" class="form-label">Email principal</label>
+								<input type="email" class="form-control" id="email" name="email"
+									th:value="${empresa.mail_empresa}" placeholder="you@example.com">
+							</div>
+
+							<div class="col-md-5">
+								<input type="hidden" id="departamento_seleccionado" th:value="${empresa.departamento}">
+								<label for="country" class="form-label">Departamento</label>
+								<select id="departamento" name="departamento" class="form-select select2"
+									data-placeholder="Seleccione una opción" required>
+									<option value="" hidden>Seleccione una opción</option>
+									<option th:each="dep : ${departamentos}" th:value="${dep.codigo_departamento}"
+										th:text="${dep.nombre_departamento}"></option>
+								</select>
+								<span><b>Codigo de ministerio: </b> <span class="codigoDepartamento"></span></span>
+								<div class="invalid-feedback">
+									Se requiere un departamento valido.
+								</div>
+							</div>
+
+							<div class="col-md-4">
+								<input type="hidden" id="ciudad_seleccionado" th:value="${empresa.ciudad.id_ciudad}">
+								<label for="state" class="form-label">Ciudad</label>
+								<select id="ciudad" name="ciudad" class="form-select select2"
+									data-placeholder="Seleccione una opción" required>
+									<option value="">Seleccione una departamento</option>
+								</select>
+								<span><b>Codigo de ministerio: </b> <span class="codigoCiudad"></span></span>
+								<div class="invalid-feedback">
+									Se requiere una ciudad valida.
+								</div>
+							</div>
+
+							<div class="col-md-3">
+								<label for="zip" class="form-label">Fecha vinculación</label>
+								<input type="date" class="form-control" name="fecha_vinculacion"
+									th:value="${fechaVinEmpresa}" required>
+								<div class="invalid-feedback">
+									Se requiere una fecha de vinculacion.
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="col-md-6 div-contactos">
+
+						<div class="div-formulario">
+
+							<h4 class="mb-3">Estado</h4>
+							<input type="hidden" id="estado_seleccionado" th:value="${empresa.estado_empresa}">
+							<div class="my-3">
+								<div class="form-check">
+									<input id="activo" name="estado" type="radio" class="form-check-input estado"
+										value="A" required>
+									<label class="form-check-label" for="credit">Activo</label>
+								</div>
+								<div class="form-check">
+									<input id="inactivo" name="estado" type="radio" class="form-check-input estado"
+										value="I" required>
+									<label class="form-check-label" for="debit">Inactivo</label>
+								</div>
+							</div>
+						</div>
+
+						<div id="divObservaciones" class="row gy-3" style="display: none;">
+							<div class="col-md-12">
+								<label for="cc-name" class="form-label">Observaciones</label>
+								<textarea cols="3" class="form-control" id="observaciones" name="observaciones_empresa"
+									th:text="${empresa.observaciones_empresa}" placeholder="" required> </textarea>
+								<div class="invalid-feedback">
+									Se requiere una observacion valida
+								</div>
+							</div>
+						</div>
+
+						<hr class="my-4">
+						<div class="row">
+							<div class="col-md-10">
+								<h4 class="mb-3 text-center">Personas de contacto</h4>
+							</div>
+							<div class="col-md-2">
+								<button type="button" class="btn btn-secondary w-100" id="btnAjustarTabla"><i
+										class="bi bi-arrows-angle-expand"></i></button>
+							</div>
+						</div>
+
+						<table class="table table-bordered">
+							<thead class="table-dark">
+								<tr>
+									<th>#</th>
+									<th>Nombre</th>
+									<th>Apellido</th>
+									<th>Cargo</th>
+									<th>Email</th>
+									<th>Celular</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody id="tablaBody">
+								<!-- Filas iniciales -->
+								<tr th:each="contacto, iterStat : ${contactos}">
+									<td th:text="${iterStat.index + 1}"></td> <!-- Muestra el número de fila -->
+									<td>
+										<input type="text" class="form-control" placeholder="Nombre"
+											name="nombre_persona[]" th:value="${contacto.nombre}" required>
+										<!-- Asigna el valor del nombre -->
+									</td>
+									<td>
+										<input type="text" class="form-control" placeholder="Apellido"
+											name="apellido_persona[]" th:value="${contacto.apellido}">
+										<!-- Asigna el valor del apellido -->
+									</td>
+									<td>
+										<input type="text" class="form-control" placeholder="Cargo"
+											name="cargo_persona[]" th:value="${contacto.cargo}">
+										<!-- Asigna el valor del cargo -->
+									</td>
+									<td>
+										<div class="row">
+											<div class="col-md-12 divInputCorreo">
+												<input type="email" class="form-control" placeholder="Correo"
+													name="correo_persona[]" th:value="${contacto.correo}"
+													th:id="'correo_persona_' + ${iterStat.index + 1}" required>
+												<!-- Asigna el valor del correo -->
+											</div>
+											<div class="col-md-2 divBotonCopiarCorreo ps-0" style="display: none;">
+												<button type="button" class="btn btn-primary w-100 btnCopiarCorreo"
+													th:value="${iterStat.index + 1}">
+													<i class="bi bi-copy"></i>
+												</button>
+											</div>
+										</div>
+									</td>
+									<td>
+										<input type="tel" class="form-control" placeholder="Teléfono"
+											name="telefono_persona[]" th:value="${contacto.celular}">
+										<!-- Asigna el valor del teléfono -->
+									</td>
+									<td>
+										<button type="button" class="btn btn-danger btn-sm eliminar-fila">
+											<i class="bi bi-x-lg"></i>
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<div class="col-md-12 d-flex justify-content-center"><button type="button"
+								class="btn btn-success rounded-circle" id="addRow"><i class="bi bi-plus-circle"
+									style="font-size: x-large;"></i></button></div>
+
+
+					</div>
+				</div>
+			</form>
+		</div>
+
+	</section>
+
+	<script th:src="@{/js/public/jquery.js}"></script>
+	<script th:src="@{/select2/dist/js/select2.min.js}"></script>
+	<script th:src="@{/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/js/public/form-validation.js}"></script>
+	<script th:src="@{/js/public/sweetalert2.all.min.js}"></script>
+	<script th:src="@{/js/registro/estado.js}"></script>
+	<script th:src="@{/js/registro/empresa.js}"></script>
+	<script th:src="@{/js/registro/editEmpresa.js}"></script>
+
+</body>
+
+</html>
