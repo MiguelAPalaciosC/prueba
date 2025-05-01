@@ -120,7 +120,7 @@ public class UsuarioController {
 
 	@GetMapping(value = { "/login", "/" })
 	public String home() {
-		return "/login"; // Renderiza index.html en /templates/
+		return "login"; // Renderiza index.html en /templates/
 	}
 
 	@GetMapping("/access")

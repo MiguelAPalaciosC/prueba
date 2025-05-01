@@ -17,7 +17,7 @@ import com.aspromedic.service.IIngeominasService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("geomina")
+@RequestMapping("/geomina")
 public class IngeominasController {
 
     @Autowired
