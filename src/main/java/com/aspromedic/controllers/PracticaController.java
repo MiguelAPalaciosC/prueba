@@ -29,7 +29,7 @@ public class PracticaController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<PracticaResponseRest> responseDuplicado = service
@@ -37,16 +37,16 @@ public class PracticaController {
         if (responseDuplicado.getStatusCode() == HttpStatus.OK && responseDuplicado.getBody() != null) {
             List<Practica> list = responseDuplicado.getBody().getPracticaResponse().getPracticas();
             if (list != null && !list.isEmpty()) {
-                return "redirect:/param/practicas?repetido";
+                return "param/practicas?repetido";
             }
         }
 
         ResponseEntity<PracticaResponseRest> response = service.save(request);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            return "redirect:/param/practicas?exito";
+            return "param/practicas?exito";
         } else {
-            return "redirect:/param/practicas?error";
+            return "param/practicas?error";
         }
     }
 
@@ -56,7 +56,7 @@ public class PracticaController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<PracticaResponseRest> responseDuplicado = service
@@ -66,7 +66,7 @@ public class PracticaController {
             if (list != null && !list.isEmpty()) {
                 Practica pra = list.get(0);
                 if (!pra.getId_practica().equals(request.getId_practica())) {
-                    return "redirect:/param/practicas?repetido";
+                    return "param/practicas?repetido";
                 }
             }
         }
@@ -74,9 +74,9 @@ public class PracticaController {
         ResponseEntity<PracticaResponseRest> response = service.update(request.getId_practica(), request);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            return "redirect:/param/practicas?exitoUpdate";
+            return "param/practicas?exitoUpdate";
         } else {
-            return "redirect:/param/practicas?errorUpdate";
+            return "param/practicas?errorUpdate";
         }
 
     }
@@ -87,15 +87,15 @@ public class PracticaController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<PracticaResponseRest> response = service.delete(idPractica);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            return "redirect:/param/practicas?exitoDelete";
+            return "param/practicas?exitoDelete";
         } else {
-            return "redirect:/param/practicas?errorDelete";
+            return "param/practicas?errorDelete";
         }
     }
 }

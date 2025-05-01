@@ -53,7 +53,7 @@ public class FacturaController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<EmpresaResponseRest> response = empresaService.findAll();
@@ -80,7 +80,7 @@ public class FacturaController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<EmpresaResponseRest> response = empresaService.findAll();
@@ -124,7 +124,7 @@ public class FacturaController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<EmpresaResponseRest> response = empresaService.buscarPorId(id);
@@ -160,7 +160,7 @@ public class FacturaController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<EmpresaResponseRest> response = empresaService.buscarPorId(id);
@@ -215,7 +215,7 @@ public class FacturaController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         System.out.println("Factura: " + factura.toString());
@@ -278,7 +278,7 @@ public class FacturaController {
 
         ResponseEntity<FacturaResponseRest> response = facturaService.save(nuevaFactura);
 
-        return "redirect:/gestion5/facturas/" + id + "?exito";
+        return "gestion5/facturas/" + id + "?exito";
     }
 
     @GetMapping("/infoContrato")

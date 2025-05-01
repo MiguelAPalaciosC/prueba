@@ -66,7 +66,7 @@ public class TrabajadorController {
         // Check if the user is authenticated
         Object userIdAttribute = session.getAttribute("user_session_id");
         if (userIdAttribute == null) {
-            return "redirect:/login"; // Redirect to login if not authenticated
+            return "login"; // Redirect to login if not authenticated
         }
 
         model.addAttribute("trabajador", new Trabajador());
@@ -106,7 +106,7 @@ public class TrabajadorController {
         // Check if the user is authenticated
         Object userIdAttribute = session.getAttribute("user_session_id");
         if (userIdAttribute == null) {
-            return "redirect:/login"; // Redirect to login if not authenticated
+            return "login"; // Redirect to login if not authenticated
         }
 
         ResponseEntity<TrabajadorResponseRest> responseTrabajador = trabajadorService.findById(id);
@@ -166,7 +166,7 @@ public class TrabajadorController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         Pageable pageable = PageRequest.of(page, size);
@@ -206,7 +206,7 @@ public class TrabajadorController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         System.out.println("Trabajador: " + request.toString());
@@ -242,11 +242,11 @@ public class TrabajadorController {
                 ResponseEntity<TrabajadorResponseRest> response = trabajadorService.save(trabajador);
 
                 if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-                    return "redirect:/gestion2/trabajadores?exito";
+                    return "gestion2/trabajadores?exito";
                 }
             }
         }
-        return "redirect:/gestion2/trabajadores?error";
+        return "gestion2/trabajadores?error";
     }
 
     @PostMapping("/update/{id}")
@@ -256,7 +256,7 @@ public class TrabajadorController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         System.out.println("Trabajador: " + request.toString());
@@ -292,11 +292,11 @@ public class TrabajadorController {
                 ResponseEntity<TrabajadorResponseRest> response = trabajadorService.update(id, trabajador);
 
                 if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-                    return "redirect:/gestion2/trabajadores?exitoUpdate";
+                    return "gestion2/trabajadores?exitoUpdate";
                 }
             }
         }
-        return "redirect:/gestion2/trabajadores?errorUpdate";
+        return "gestion2/trabajadores?errorUpdate";
     }
 
     @PostMapping("/delete")
@@ -305,7 +305,7 @@ public class TrabajadorController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<DosimetroResponseRest> responseDosimetro = dosimetroService.findByTrabajador(id_trabajador);
@@ -316,16 +316,16 @@ public class TrabajadorController {
                     .getDosimetros();
 
             if (dosimetros != null && !dosimetros.isEmpty()) {
-                return "redirect:/gestion2/trabajadores?relacionado";
+                return "gestion2/trabajadores?relacionado";
             }
         }
 
         ResponseEntity<TrabajadorResponseRest> response = trabajadorService.deleteById(id_trabajador);
 
         if (response.getStatusCode() == HttpStatus.OK) {
-            return "redirect:/gestion2/trabajadores?exito";
+            return "gestion2/trabajadores?exito";
         } else {
-            return "redirect:/gestion2/trabajadores?error";
+            return "gestion2/trabajadores?error";
         }
     }
 

@@ -32,14 +32,14 @@ public class CargoController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<CargoResponseRest> repetidoResponse = cargoService.buscarPorCodigoCargo(cargo.getCodigo_cargo());
         if (repetidoResponse.getStatusCode() == HttpStatus.OK && repetidoResponse.getBody() != null) {
             List<Cargo> cargos = repetidoResponse.getBody().getCargoResponse().getCargos();
             if (cargos != null && !cargos.isEmpty()) { // Verifica que la lista no esté vacía
-                return "redirect:/param/cargos?repetido"; // Redirige si el ID no coincide
+                return "param/cargos?repetido"; // Redirige si el ID no coincide
             }
         }
 
@@ -49,10 +49,10 @@ public class CargoController {
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
 
-            return "redirect:/param/cargos?exito";
+            return "param/cargos?exito";
         }
 
-        return "redirect:/param/cargos?error";
+        return "param/cargos?error";
     }
 
     @PostMapping("/update")
@@ -60,7 +60,7 @@ public class CargoController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<CargoResponseRest> repetidoResponse = cargoService.buscarPorCodigoCargo(cargo.getCodigo_cargo());
@@ -69,7 +69,7 @@ public class CargoController {
             if (cargos != null && !cargos.isEmpty()) { // Verifica que la lista no esté vacía
                 Cargo response = cargos.get(0);
                 if (!response.getId_cargo().equals(cargo.getId_cargo())) {
-                    return "redirect:/param/cargos?repetido"; // Redirige si el ID no coincide
+                    return "param/cargos?repetido"; // Redirige si el ID no coincide
                 }
             }
         }
@@ -80,10 +80,10 @@ public class CargoController {
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
 
-            return "redirect:/param/cargos?exitoUpdate";
+            return "param/cargos?exitoUpdate";
         }
 
-        return "redirect:/param/cargos?errorUpdate";
+        return "param/cargos?errorUpdate";
     }
 
     @PostMapping("/delete")
@@ -91,16 +91,16 @@ public class CargoController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<CargoResponseRest> response = cargoService.eliminar(cargo.getId_cargo());
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
 
-            return "redirect:/param/cargos?exitoDelete";
+            return "param/cargos?exitoDelete";
         }
 
-        return "redirect:/param/cargos?errorDelete";
+        return "param/cargos?errorDelete";
     }
 }

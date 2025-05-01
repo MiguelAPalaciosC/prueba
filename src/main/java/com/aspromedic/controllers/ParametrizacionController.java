@@ -90,7 +90,7 @@ public class ParametrizacionController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<CargoResponseRest> response = cargoService.buscarCargos();
@@ -113,7 +113,7 @@ public class ParametrizacionController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<CiudadResponseRest> response = ciudadService.listarCiudades();
@@ -147,7 +147,7 @@ public class ParametrizacionController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<DepartamentoResponseRest> response = departamentoService.buscarDepartamento();
@@ -171,7 +171,7 @@ public class ParametrizacionController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<IngeominasResponseRest> response = geominasService.buscarIngeominas();
@@ -195,7 +195,7 @@ public class ParametrizacionController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<ObservacionResponseRest> response = observacionService.findAll();
@@ -217,7 +217,7 @@ public class ParametrizacionController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<PracticaResponseRest> response = practicaService.findAll();
@@ -239,7 +239,7 @@ public class ParametrizacionController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<RadiacionResponseRest> response = radiacionService.findAll();
@@ -261,7 +261,7 @@ public class ParametrizacionController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<TituloResponseRest> response = tituloService.findAll();
@@ -283,7 +283,7 @@ public class ParametrizacionController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<UbicacionResponseRest> response = ubicacionService.findAll();
@@ -306,7 +306,7 @@ public class ParametrizacionController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<EscolaridadResponseRest> response = escolaridadService.findAll();
@@ -328,7 +328,7 @@ public class ParametrizacionController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<TipoDosimetroResponseRest> response = tipoDosimetroService.findAll();

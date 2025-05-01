@@ -44,7 +44,7 @@ public class UsuarioController {
 		Object userIdAttribute = request.getSession().getAttribute("user_session_id");
 
 		if (userIdAttribute == null) {
-			return "redirect:/login";
+			return "login";
 		}
 
 		ResponseEntity<UsuarioResponseRest> response = service.findAll();
@@ -72,10 +72,10 @@ public class UsuarioController {
 		ResponseEntity<UsuarioResponseRest> response = service.save(registro, tipo_usuario);
 
 		if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-			return "redirect:/admin/registroUsuario?exito";
+			return "admin/registroUsuario?exito";
 		}
 
-		return "redirect:/admin/registroUsuario?error";
+		return "admin/registroUsuario?error";
 	}
 
 	@PostMapping("/admin/actualizarUsuario/{id}")
@@ -83,15 +83,15 @@ public class UsuarioController {
 		Object userIdAttribute = session.getAttribute("user_session_id");
 
 		if (userIdAttribute == null) {
-			return "redirect:/login";
+			return "login";
 		}
 
 		ResponseEntity<UsuarioResponseRest> response = service.updateUser(usuario, id);
 
 		if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-			return "redirect:/admin/usuario/" + id + "?exito";
+			return "admin/usuario/" + id + "?exito";
 		}
-		return "redirect:/admin/usuario/" + id + "?error";
+		return "admin/usuario/" + id + "?error";
 	}
 
 	@GetMapping("/admin/usuario/{id}")
@@ -99,7 +99,7 @@ public class UsuarioController {
 		Object userIdAttribute = session.getAttribute("user_session_id");
 
 		if (userIdAttribute == null) {
-			return "redirect:/login";
+			return "login";
 		}
 
 		ResponseEntity<UsuarioResponseRest> response = service.getUserById(id);
@@ -128,7 +128,7 @@ public class UsuarioController {
 		Object userIdAttribute = session.getAttribute("user_session_id");
 
 		if (userIdAttribute == null) {
-			return "redirect:/login";
+			return "login";
 		}
 
 		try {
@@ -143,17 +143,17 @@ public class UsuarioController {
 				session.setAttribute("user_session_id",
 						response.getBody().getUsuarioResponse().getUsuario().get(0).getId());
 
-				return "redirect:/admin/index";
+				return "admin/index";
 			}
 		} catch (NumberFormatException e) {
 			// Si el valor en sesión no es un número válido, lo redirigimos al login
-			return "redirect:/login";
+			return "login";
 		} catch (Exception e) {
 			// Captura cualquier otro error inesperado
 			e.printStackTrace(); // O log.error("Error obteniendo usuario", e);
 		}
 
-		return "redirect:/login";
+		return "login";
 	}
 
 	@GetMapping("/logout")
@@ -163,7 +163,7 @@ public class UsuarioController {
 		if (session != null) {
 			session.invalidate();
 		}
-		return "redirect:/login";
+		return "login";
 	}
 
 }

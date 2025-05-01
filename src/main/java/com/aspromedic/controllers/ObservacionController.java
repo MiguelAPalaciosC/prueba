@@ -30,7 +30,7 @@ public class ObservacionController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<ObservacionResponseRest> responseDuplicados = observacionService
@@ -38,16 +38,16 @@ public class ObservacionController {
         if (responseDuplicados.getStatusCode() == HttpStatus.OK && responseDuplicados.getBody() != null) {
             List<Observacion> list = responseDuplicados.getBody().getObservacionResponse().getObservaciones();
             if (list != null && !list.isEmpty()) {
-                return "redirect:/param/observaciones?repetido";
+                return "param/observaciones?repetido";
             }
         }
 
         ResponseEntity<ObservacionResponseRest> response = observacionService.save(request);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            return "redirect:/param/observaciones?exito";
+            return "param/observaciones?exito";
         } else {
-            return "redirect:/param/observaciones?error";
+            return "param/observaciones?error";
         }
     }
 
@@ -56,7 +56,7 @@ public class ObservacionController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<ObservacionResponseRest> responseDuplicados = observacionService
@@ -64,7 +64,7 @@ public class ObservacionController {
         if (responseDuplicados.getStatusCode() == HttpStatus.OK && responseDuplicados.getBody() != null) {
             List<Observacion> list = responseDuplicados.getBody().getObservacionResponse().getObservaciones();
             if (!list.isEmpty() && !list.get(0).getId_observacion().equals(request.getId_observacion())) {
-                return "redirect:/param/observaciones?repetido";
+                return "param/observaciones?repetido";
             }
         }
 
@@ -72,9 +72,9 @@ public class ObservacionController {
                 request);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            return "redirect:/param/observaciones?exitoUpdate";
+            return "param/observaciones?exitoUpdate";
         } else {
-            return "redirect:/param/observaciones?errorUpdate";
+            return "param/observaciones?errorUpdate";
         }
     }
 
@@ -83,15 +83,15 @@ public class ObservacionController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<ObservacionResponseRest> response = observacionService.delete(id);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            return "redirect:/param/observaciones?exitoDelete";
+            return "param/observaciones?exitoDelete";
         } else {
-            return "redirect:/param/observaciones?errorDelete";
+            return "param/observaciones?errorDelete";
         }
     }
 }

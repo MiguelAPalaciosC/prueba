@@ -12,11 +12,11 @@ public class AdminController {
 
 	@GetMapping("/registroUsuario")
 	public String mostrarFormulario() {
-		return "/admin/registroUsuario";
+		return "admin/registroUsuario";
 	}
 	
 	@GetMapping("/index")
 	public String irAlInicio() {
-		return "/admin/index";
+		return "admin/index";
 	}
 }

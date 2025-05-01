@@ -28,7 +28,7 @@ public class IngeominasController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<IngeominasResponseRest> responseDuplicado = geominaService
@@ -36,16 +36,16 @@ public class IngeominasController {
         if (responseDuplicado.getStatusCode() == HttpStatus.OK && responseDuplicado.getBody() != null) {
             List<Ingeominas> list = responseDuplicado.getBody().getIngeominasResponse().getIngeominas();
             if (list != null && !list.isEmpty()) {
-                return "redirect:/param/geominas?repetido";
+                return "param/geominas?repetido";
             }
         }
 
         ResponseEntity<IngeominasResponseRest> response = geominaService.guardarIngeominas(request);
 
         if (response.getStatusCode() == HttpStatus.OK) {
-            return "redirect:/param/geominas?exito";
+            return "param/geominas?exito";
         } else {
-            return "redirect:/param/geominas?error";
+            return "param/geominas?error";
         }
     }
 
@@ -54,7 +54,7 @@ public class IngeominasController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<IngeominasResponseRest> responseDuplicado = geominaService
@@ -64,7 +64,7 @@ public class IngeominasController {
             if (list != null && !list.isEmpty()) {
                 Ingeominas ing = list.get(0);
                 if (!ing.getId_geominas().equals(request.getId_geominas())) {
-                    return "redirect:/param/geominas?repetido";
+                    return "param/geominas?repetido";
                 }
             }
         }
@@ -73,9 +73,9 @@ public class IngeominasController {
                 request);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            return "redirect:/param/geominas?exitoUpdate";
+            return "param/geominas?exitoUpdate";
         } else {
-            return "redirect:/param/geominas?errorUpdate";
+            return "param/geominas?errorUpdate";
         }
     }
 
@@ -85,14 +85,14 @@ public class IngeominasController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<IngeominasResponseRest> response = geominaService.eliminarIngeominas(id_geominas);
         if (response.getStatusCode() == HttpStatus.OK) {
-            return "redirect:/param/geominas?exitoDelete";
+            return "param/geominas?exitoDelete";
         } else {
-            return "redirect:/param/geominas?errorDelete";
+            return "param/geominas?errorDelete";
         }
     }
 

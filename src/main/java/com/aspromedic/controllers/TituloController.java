@@ -35,7 +35,7 @@ public class TituloController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
         System.out.println("Titulo: " + request.toString());
 
@@ -45,7 +45,7 @@ public class TituloController {
         if (responseDuplicado.getStatusCode() == HttpStatus.OK && responseDuplicado.getBody() != null) {
             List<Titulo> list = responseDuplicado.getBody().getTituloResponse().getTitulos();
             if (list != null && !list.isEmpty()) {
-                return "redirect:/param/titulos?repetido";
+                return "param/titulos?repetido";
             }
         }
 
@@ -55,9 +55,9 @@ public class TituloController {
         System.out.println("response:   " + response);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            return "redirect:/param/titulos?exito";
+            return "param/titulos?exito";
         } else {
-            return "redirect:/param/titulos?error";
+            return "param/titulos?error";
         }
     }
 
@@ -66,7 +66,7 @@ public class TituloController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<TituloResponseRest> responseDuplicado = tituloService
@@ -77,7 +77,7 @@ public class TituloController {
             if (!list.isEmpty() && list != null) {
                 Titulo titulo = list.get(0);
                 if (!request.getId_titulo().equals(titulo.getId_titulo())) {
-                    return "redirect:/param/titulos?repetido";
+                    return "param/titulos?repetido";
                 }
             }
         }
@@ -85,9 +85,9 @@ public class TituloController {
         ResponseEntity<TituloResponseRest> response = tituloService.update(request.getId_titulo(), request);
 
         if (response.getStatusCode() == HttpStatus.OK) {
-            return "redirect:/param/titulos?exitoUpdate";
+            return "param/titulos?exitoUpdate";
         } else {
-            return "redirect:/param/titulos?errorUpdate";
+            return "param/titulos?errorUpdate";
         }
 
     }
@@ -96,19 +96,19 @@ public class TituloController {
     public String eliminarTitulo(@RequestParam("id_titulo") Long id_titulo, HttpSession session) throws IOException {
         Object userIdAttribute = session.getAttribute("user_session_id");
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<TrabajadorResponseRest> responseTrabajador = trabajadorService.findByTitulo(id_titulo);
         if (responseTrabajador.getStatusCode() == HttpStatus.OK && responseTrabajador.getBody()!= null
                 &&!responseTrabajador.getBody().getTrabajadorResponse().getTrabajadores().isEmpty()) {
-            return "redirect:/param/titulos?relacionado";
+            return "param/titulos?relacionado";
         }
 
         ResponseEntity<TituloResponseRest> response = tituloService.deleteById(id_titulo);
 
         if (response.getStatusCode() == HttpStatus.OK) {
-            return "redirect:/param/titulos?exitoDelete";
+            return "param/titulos?exitoDelete";
         } else {
             return "redirect:/param/titulos?errorDelete";
         }

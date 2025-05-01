@@ -98,7 +98,7 @@ public class DosimetroController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<EmpresaResponseRest> response = empresaService.findAll();
@@ -125,7 +125,7 @@ public class DosimetroController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<EmpresaResponseRest> response = empresaService.findAll();
@@ -194,7 +194,7 @@ public class DosimetroController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<TipoDosimetroResponseRest> responseTipo = tipoDosimetroService.findAll();
@@ -267,7 +267,7 @@ public class DosimetroController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<TipoDosimetroResponseRest> responseTipo = tipoDosimetroService.findAll();
@@ -407,7 +407,7 @@ public class DosimetroController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         System.out.println("Dosimetro: " + request.toString());
@@ -508,9 +508,9 @@ public class DosimetroController {
         ResponseEntity<DosimetroResponseRest> response = dosimetrosService.save(dosimetro);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            return "redirect:/gestion3/dosimetros/" + id + "?exito";
+            return "gestion3/dosimetros/" + id + "?exito";
         } else {
-            return "redirect:/gestion3/dosimetros/" + id + "/?error";
+            return "gestion3/dosimetros/" + id + "/?error";
         }
 
     }
@@ -522,7 +522,7 @@ public class DosimetroController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         System.out.println("Dosimetro: " + request.toString());
@@ -623,9 +623,9 @@ public class DosimetroController {
         ResponseEntity<DosimetroResponseRest> response = dosimetrosService.update(id_dosimetro, dosimetro);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            return "redirect:/gestion3/dosimetros/" + id_empresa + "?exitoUpdate";
+            return "gestion3/dosimetros/" + id_empresa + "?exitoUpdate";
         } else {
-            return "redirect:/gestion3/dosimetros/" + id_empresa + "?errorUpdate";
+            return "gestion3/dosimetros/" + id_empresa + "?errorUpdate";
         }
 
     }

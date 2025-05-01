@@ -43,7 +43,7 @@ public class CiudadController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         System.out.println("Ciudad: " + departamentoId);
@@ -53,7 +53,7 @@ public class CiudadController {
         if (reponseRepetidos.getStatusCode() == HttpStatus.OK && reponseRepetidos.getBody() != null) {
             List<Ciudad> ciudades = reponseRepetidos.getBody().getCiudadResponse().getCiudades();
             if (ciudades != null && ciudades.size() > 0) {
-                return "redirect:/param/ciudades?repetido";
+                return "param/ciudades?repetido";
             }
         }
 
@@ -67,11 +67,11 @@ public class CiudadController {
             ResponseEntity<CiudadResponseRest> response = service.guardarCiudad(ciudad);
 
             if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-                return "redirect:/param/ciudades?exito";
+                return "param/ciudades?exito";
             }
         }
 
-        return "redirect:/param/ciudades?error";
+        return "param/ciudades?error";
     }
 
     @PostMapping("/update")
@@ -83,7 +83,7 @@ public class CiudadController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<CiudadResponseRest> reponseRepetidos = service.buscarCiudadPorCodigo(codigoMinCiudad);
@@ -93,7 +93,7 @@ public class CiudadController {
             if (ciudades != null && ciudades.size() > 0) {
                 Ciudad ciudad = ciudades.get(0);
                 if (!ciudad.getId_ciudad().equals(idCiudad)) {
-                    return "redirect:/param/ciudades?repetido";
+                    return "param/ciudades?repetido";
                 }
             }
         }
@@ -108,11 +108,11 @@ public class CiudadController {
             ResponseEntity<CiudadResponseRest> response = service.actualizarCiudad(idCiudad, ciudad);
 
             if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-                return "redirect:/param/ciudades?exitoUpdate";
+                return "param/ciudades?exitoUpdate";
             }
         }
 
-        return "redirect:/param/ciudades?errorUpdate";
+        return "param/ciudades?errorUpdate";
     }
 
     @PostMapping("/delete")
@@ -122,16 +122,16 @@ public class CiudadController {
 
         if (responseEmpresa.getStatusCode() == HttpStatus.OK && responseEmpresa.getBody() != null
                 && responseEmpresa.getBody().getEmpresaResponse().getEmpresas().size() > 0) {
-            return "redirect:/param/ciudades?relacionado";
+            return "param/ciudades?relacionado";
         }
 
         ResponseEntity<CiudadResponseRest> response = service.eliminarCiudad(idCiudad);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            return "redirect:/param/ciudades?exitoDelete";
+            return "param/ciudades?exitoDelete";
         }
 
-        return "redirect:/param/ciudades?errorDelete";
+        return "param/ciudades?errorDelete";
     }
 
 }

@@ -30,7 +30,7 @@ public class EscolaridadController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<EscolaridadResponseRest> responseDuplicado = escolaridadService
@@ -38,7 +38,7 @@ public class EscolaridadController {
         if (responseDuplicado.getStatusCode() == HttpStatus.OK && responseDuplicado.getBody() != null) {
             List<Escolaridad> list = responseDuplicado.getBody().getEscolaridadResponse().getEscolaridades();
             if (list != null && !list.isEmpty()) {
-                return "redirect:/param/escolaridades?repetido";
+                return "param/escolaridades?repetido";
             }
         }
 
@@ -46,9 +46,9 @@ public class EscolaridadController {
 
         System.out.println("response: " + response);
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            return "redirect:/param/escolaridades?exito";
+            return "param/escolaridades?exito";
         } else {
-            return "redirect:/param/escolaridades?error";
+            return "param/escolaridades?error";
         }
 
     }
@@ -59,7 +59,7 @@ public class EscolaridadController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<EscolaridadResponseRest> responseDuplicado = escolaridadService
@@ -69,7 +69,7 @@ public class EscolaridadController {
             if (list != null && !list.isEmpty()) {
                 Escolaridad esc = list.get(0);
                 if (!esc.getId_escolaridad().equals(request.getId_escolaridad())) {
-                    return "redirect:/param/escolaridades?repetido";
+                    return "param/escolaridades?repetido";
                 }
             }
         }
@@ -78,9 +78,9 @@ public class EscolaridadController {
                 request);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            return "redirect:/param/escolaridades?exitoUpdate";
+            return "param/escolaridades?exitoUpdate";
         } else {
-            return "redirect:/param/escolaridades?errorUpdate";
+            return "param/escolaridades?errorUpdate";
         }
     }
 
@@ -90,15 +90,15 @@ public class EscolaridadController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<EscolaridadResponseRest> response = escolaridadService.deleteById(id);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            return "redirect:/param/escolaridades?exitoDelete";
+            return "param/escolaridades?exitoDelete";
         } else {
-            return "redirect:/param/escolaridades?errorDelete";
+            return "param/escolaridades?errorDelete";
         }
     }
 

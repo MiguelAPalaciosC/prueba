@@ -47,7 +47,7 @@ public class LocationController {
         // Check if the user is authenticated
         Object userIdAttribute = session.getAttribute("user_session_id");
         if (userIdAttribute == null) {
-            return "redirect:/login"; // Redirect to login if not authenticated
+            return "login"; // Redirect to login if not authenticated
         }
 
         // Return the view name without a leading slash
@@ -59,7 +59,7 @@ public class LocationController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         // Add the CSRF token to the model

@@ -74,7 +74,7 @@ public class EmpresaController {
 		Object userIdAttribute = session.getAttribute("user_session_id");
 
 		if (userIdAttribute == null) {
-			return "redirect:/login";
+			return "login";
 		}
 
 		ResponseEntity<EmpresaResponseRest> response = service.buscarPorId(id);
@@ -209,12 +209,12 @@ public class EmpresaController {
 								.map(serviceContacto::save)
 								.collect(Collectors.toList());
 
-						return "redirect:/gestion/empresas?exito";
+						return "gestion/empresas?exito";
 					}
 				}
 			}
 
-			return "redirect:/gestion/empresas?error";
+			return "gestion/empresas?error";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return e.getMessage();
@@ -303,13 +303,13 @@ public class EmpresaController {
 								.map(serviceContacto::save)
 								.collect(Collectors.toList());
 
-						return "redirect:/gestion/empresas?exitoUpdate";
+						return "gestion/empresas?exitoUpdate";
 					}
 				}
 
 			}
 
-			return "redirect:/gestion/empresas?errorUpdate";
+			return "gestion/empresas?errorUpdate";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return e.getMessage();
@@ -321,22 +321,22 @@ public class EmpresaController {
 		Object userIdAttribute = session.getAttribute("user_session_id");
 
 		if (userIdAttribute == null) {
-			return "redirect:/login";
+			return "login";
 		}
 
 		ResponseEntity<DosimetroResponseRest> respDosimetro = dosimetroService.findByEmpresa(id);
 		if (respDosimetro.getStatusCode() == HttpStatus.OK && respDosimetro.getBody() != null
 				&& respDosimetro.getBody().getDosimetroResponse() != null
 				&& !respDosimetro.getBody().getDosimetroResponse().getDosimetros().isEmpty()) {
-			return "redirect:/gestion/empresa/" + id + "?relacionado";
+			return "gestion/empresa/" + id + "?relacionado";
 		}
 
 		ResponseEntity<EmpresaResponseRest> response = service.eliminar(id);
 
 		if (response.getStatusCode() == HttpStatus.OK) {
-			return "redirect:/gestion/empresas?exitoDelete";
+			return "gestion/empresas?exitoDelete";
 		}
-		return "redirect:/gestion/empresas?errorDelete";
+		return "gestion/empresas?errorDelete";
 	}
 
 	@GetMapping("/empresas")
@@ -346,7 +346,7 @@ public class EmpresaController {
 		Object userIdAttribute = session.getAttribute("user_session_id");
 
 		if (userIdAttribute == null) {
-			return "redirect:/login";
+			return "login";
 		}
 
 		Pageable pageable = PageRequest.of(page, size);

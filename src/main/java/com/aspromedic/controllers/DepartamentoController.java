@@ -39,7 +39,7 @@ public class DepartamentoController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<DepartamentoResponseRest> resp = service
@@ -47,7 +47,7 @@ public class DepartamentoController {
         if (resp.getStatusCode() == HttpStatus.OK && resp.getBody() != null) {
             List<Departamento> departamentos = resp.getBody().getDepartamentoResponse().getDepartamentos();
             if (departamentos != null && !departamentos.isEmpty()) {
-                    return "redirect:/param/departamentos?repetido";
+                    return "param/departamentos?repetido";
             }
         }
 
@@ -58,10 +58,10 @@ public class DepartamentoController {
         ResponseEntity<DepartamentoResponseRest> response = service.guardarDepartamento(departamento);
 
         if (response.getStatusCode() == HttpStatus.OK) {
-            return "redirect:/param/departamentos?exito";
+            return "param/departamentos?exito";
         }
 
-        return "redirect:/param/departamentos?error";
+        return "param/departamentos?error";
     }
 
     @PostMapping("/update")
@@ -69,7 +69,7 @@ public class DepartamentoController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<DepartamentoResponseRest> resp = service
@@ -79,7 +79,7 @@ public class DepartamentoController {
             if (departamentos != null && !departamentos.isEmpty()) {
                 Departamento depar = departamentos.get(0);
                 if (!depar.getCodigo_departamento().equals(dep.getCodigo_departamento())) {
-                    return "redirect:/param/departamentos?repetido";
+                    return "param/departamentos?repetido";
                 }
             }
         }
@@ -91,10 +91,10 @@ public class DepartamentoController {
                 departamento);
 
         if (response.getStatusCode() == HttpStatus.OK) {
-            return "redirect:/param/departamentos?exitoUpdate";
+            return "param/departamentos?exitoUpdate";
         }
 
-        return "redirect:/param/departamentos?errorUpdate";
+        return "param/departamentos?errorUpdate";
     }
 
     @PostMapping("/delete")
@@ -102,20 +102,20 @@ public class DepartamentoController {
         ResponseEntity<CiudadResponseRest> repCiudad = ciudadService.buscarCiudadesPorDepartamento(id);
         if (repCiudad.getStatusCode() == HttpStatus.OK
                 && !repCiudad.getBody().getCiudadResponse().getCiudades().isEmpty()) {
-            return "redirect:/param/departamentos?relacionado";
+            return "param/departamentos?relacionado";
         }
 
         ResponseEntity<EmpresaResponseRest> repEmpresa = empresaService.buscarPorDepartamento(id);
         if (repEmpresa.getStatusCode() == HttpStatus.OK
                 && !repEmpresa.getBody().getEmpresaResponse().getEmpresas().isEmpty()) {
-            return "redirect:/param/departamentos?relacionado";
+            return "param/departamentos?relacionado";
         }
 
         ResponseEntity<DepartamentoResponseRest> response = service.eliminarDepartamento(id);
         if (response.getStatusCode() == HttpStatus.OK) {
-            return "redirect:/param/departamentos?exitoDelete";
+            return "param/departamentos?exitoDelete";
         }
 
-        return "redirect:/param/departamentos?errorDelete";
+        return "param/departamentos?errorDelete";
     }
 }

@@ -74,7 +74,7 @@ public class ContratoController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<EmpresaResponseRest> response = empresaService.findAll();
@@ -100,7 +100,7 @@ public class ContratoController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<EmpresaResponseRest> response = empresaService.findAll();
@@ -170,7 +170,7 @@ public class ContratoController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<TipoDosimetroResponseRest> responseTipo = tipoDosimetroService.findAll();
@@ -216,7 +216,7 @@ public class ContratoController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<TipoDosimetroResponseRest> responseTipo = tipoDosimetroService.findAll();
@@ -322,7 +322,7 @@ public class ContratoController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         Contrato contrato = new Contrato();
@@ -357,9 +357,9 @@ public class ContratoController {
         ResponseEntity<ContratoResponseRest> responseContrato = contratoService.save(contrato);
 
         if (responseContrato.getStatusCode() == HttpStatus.OK && responseContrato.getBody() != null) {
-            return "redirect:/gestion4/contrato/" + id + "?exito";
+            return "gestion4/contrato/" + id + "?exito";
         }
-        return "redirect:/gestion4/contrato/" + id + "?error";
+        return "gestion4/contrato/" + id + "?error";
     }
 
     @PostMapping("/renovar/{id}")
@@ -369,7 +369,7 @@ public class ContratoController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<ContratoResponseRest> responseContrato = contratoService.findById(id_contrato);
@@ -446,16 +446,16 @@ public class ContratoController {
                                 .map(contratoDosimetroService::save)
                                 .collect(Collectors.toList());
 
-                        return "redirect:/gestion4/contratos/" + id + "?exitoRenovar";
+                        return "gestion4/contratos/" + id + "?exitoRenovar";
                     } else {
-                        return "redirect:/gestion4/contratos/" + id + "?exitoRenovar";
+                        return "gestion4/contratos/" + id + "?exitoRenovar";
                     }
                 }
 
             }
         }
 
-        return "redirect:/gestion4/contratos/" + id + "?errorRenovar";
+        return "gestion4/contratos/" + id + "?errorRenovar";
     }
 
     @PostMapping("/update/{id_empresa}")
@@ -468,7 +468,7 @@ public class ContratoController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         Contrato contrato = new Contrato();
@@ -511,10 +511,10 @@ public class ContratoController {
             ResponseEntity<ContratoDosimetroResponseRest> responseDosimetro = contratoDosimetroService
                     .updateEstado(id_contrato.toString(), estado);
 
-            return "redirect:/gestion4/contratos/" + id + "?exitoUpdate";
+            return "gestion4/contratos/" + id + "?exitoUpdate";
         }
 
-        return "redirect:/gestion4/contratos/" + id + "?errorUpdate";
+        return "gestion4/contratos/" + id + "?errorUpdate";
     }
 
     @GetMapping("/newDosimetro")

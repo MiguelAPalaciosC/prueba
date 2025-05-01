@@ -29,7 +29,7 @@ public class UbicacionController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<UbicacionResponseRest> responseDuplicado = service.findByCodigoUbicacion(request.getCodigo_ubicacion());
@@ -37,16 +37,16 @@ public class UbicacionController {
         if (responseDuplicado.getStatusCode() == HttpStatus.OK && responseDuplicado.getBody()!= null) {
             List<Ubicacion> list = responseDuplicado.getBody().getUbicacionResponse().getUbicaciones();
             if (list!= null &&!list.isEmpty()) {
-                return "redirect:/param/ubicaciones?repetido";
+                return "param/ubicaciones?repetido";
             }
         }
 
         ResponseEntity<UbicacionResponseRest> response = service.save(request);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            return "redirect:/param/ubicaciones?exito";
+            return "param/ubicaciones?exito";
         } else {
-            return "redirect:/param/ubicaciones?error";
+            return "param/ubicaciones?error";
         }
     }
 
@@ -54,7 +54,7 @@ public class UbicacionController {
     public String actualizarUbicacion(Ubicacion request, HttpSession session) throws IOException {
         Object userIdAttribute = session.getAttribute("user_session_id");
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<UbicacionResponseRest> responseDuplicado = service.findByCodigoUbicacion(request.getCodigo_ubicacion());
@@ -64,7 +64,7 @@ public class UbicacionController {
             if (list!= null &&!list.isEmpty()) {
                 Ubicacion ubi = list.get(0);
                 if (!ubi.getId_ubicacion().equals(request.getId_ubicacion())) {
-                    return "redirect:/param/ubicaciones?repetido";
+                    return "param/ubicaciones?repetido";
                 }
             }
         }
@@ -72,9 +72,9 @@ public class UbicacionController {
         ResponseEntity<UbicacionResponseRest> response = service.update(request.getId_ubicacion(), request);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            return "redirect:/param/ubicaciones?exitoUpdate";
+            return "param/ubicaciones?exitoUpdate";
         } else {
-            return "redirect:/param/ubicaciones?errorUpdate";
+            return "param/ubicaciones?errorUpdate";
         }
     }
 
@@ -84,15 +84,15 @@ public class UbicacionController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<UbicacionResponseRest> response = service.delete(id);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            return "redirect:/param/ubicaciones?exitoDelete";
+            return "param/ubicaciones?exitoDelete";
         } else {
-            return "redirect:/param/ubicaciones?errorDelete";
+            return "param/ubicaciones?errorDelete";
         }
     }
 

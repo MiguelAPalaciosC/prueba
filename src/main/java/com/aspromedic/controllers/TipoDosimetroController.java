@@ -28,7 +28,7 @@ public class TipoDosimetroController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<TipoDosimetroResponseRest> responseDuplicado = service.findByNombre(request.getNombre());
@@ -36,16 +36,16 @@ public class TipoDosimetroController {
         if (responseDuplicado.getStatusCode() == HttpStatus.OK && responseDuplicado.getBody() != null) {
             List<TipoDosimetro> list = responseDuplicado.getBody().getTipoDosimetroResponse().getTipos();
             if (list != null && !list.isEmpty()) {
-                return "redirect:/param/tipoDosimetro?repetido";
+                return "param/tipoDosimetro?repetido";
             }
         }
 
         ResponseEntity<TipoDosimetroResponseRest> response = service.save(request);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            return "redirect:/param/tipoDosimetro?exito";
+            return "param/tipoDosimetro?exito";
         }
-        return "redirect:/param/tipoDosimetro?error";
+        return "param/tipoDosimetro?error";
     }
 
     @PostMapping("/update")
@@ -53,7 +53,7 @@ public class TipoDosimetroController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<TipoDosimetroResponseRest> responseDuplicado = service.findByNombre(request.getNombre());
@@ -61,16 +61,16 @@ public class TipoDosimetroController {
         if (responseDuplicado.getStatusCode() == HttpStatus.OK && responseDuplicado.getBody() != null) {
             List<TipoDosimetro> list = responseDuplicado.getBody().getTipoDosimetroResponse().getTipos();
             if (!list.isEmpty() &&!list.get(0).getId_tipo_dosimetro().equals(request.getId_tipo_dosimetro())) {
-                return "redirect:/param/tipoDosimetro?repetido";
+                return "param/tipoDosimetro?repetido";
             }
         }
 
         ResponseEntity<TipoDosimetroResponseRest> response = service.update(request.getId_tipo_dosimetro(), request);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            return "redirect:/param/tipoDosimetro?exitoUpdate";
+            return "param/tipoDosimetro?exitoUpdate";
         }
-        return "redirect:/param/tipoDosimetro?errorUpdate";
+        return "param/tipoDosimetro?errorUpdate";
     }
 
     @PostMapping("/delete")
@@ -78,14 +78,14 @@ public class TipoDosimetroController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<TipoDosimetroResponseRest> response = service.deleteById(id_tipo_dosimetro);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody()!= null) {
-            return "redirect:/param/tipoDosimetro?exitoDelete";
+            return "param/tipoDosimetro?exitoDelete";
         }
-        return "redirect:/param/tipoDosimetro?errorDelete";
+        return "param/tipoDosimetro?errorDelete";
     }
 }

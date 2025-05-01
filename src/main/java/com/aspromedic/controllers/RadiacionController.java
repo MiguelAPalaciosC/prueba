@@ -29,23 +29,23 @@ public class RadiacionController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<RadiacionResponseRest> responseDuplicado = service.findByCodigo(request.getCodigo_radiacion());
         if (responseDuplicado.getStatusCode() == HttpStatus.OK && responseDuplicado.getBody() != null) {
             List<Radiacion> list = responseDuplicado.getBody().getRadiacionResponse().getRadiaciones();
             if (list != null && !list.isEmpty()) {
-                return "redirect:/param/radiaciones?repetido";
+                return "param/radiaciones?repetido";
             }
         }
 
         ResponseEntity<RadiacionResponseRest> response = service.save(request);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            return "redirect:/param/radiaciones?exito";
+            return "param/radiaciones?exito";
         } else {
-            return "redirect:/param/radiaciones?error";
+            return "param/radiaciones?error";
         }
     }
 
@@ -54,7 +54,7 @@ public class RadiacionController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<RadiacionResponseRest> responseDuplicado = service.findByCodigo(request.getCodigo_radiacion());
@@ -63,7 +63,7 @@ public class RadiacionController {
             if (list != null && !list.isEmpty()) {
                 Radiacion rad = list.get(0);
                 if (!rad.getId_radiacion().equals(request.getId_radiacion())) {
-                    return "redirect:/param/radiaciones?repetido";
+                    return "param/radiaciones?repetido";
                 }
             }
         }
@@ -71,9 +71,9 @@ public class RadiacionController {
         ResponseEntity<RadiacionResponseRest> response = service.update(request.getId_radiacion(), request);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            return "redirect:/param/radiaciones?exitoUpdate";
+            return "param/radiaciones?exitoUpdate";
         } else {
-            return "redirect:/param/radiaciones?errorUpdate";
+            return "param/radiaciones?errorUpdate";
         }
     }
 
@@ -83,15 +83,15 @@ public class RadiacionController {
         Object userIdAttribute = session.getAttribute("user_session_id");
 
         if (userIdAttribute == null) {
-            return "redirect:/login";
+            return "login";
         }
 
         ResponseEntity<RadiacionResponseRest> response = service.delete(idRadiacion);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
-            return "redirect:/param/radiaciones?exitoDelete";
+            return "param/radiaciones?exitoDelete";
         } else {
-            return "redirect:/param/radiaciones?errorDelete";
+            return "param/radiaciones?errorDelete";
         }
 
     }
