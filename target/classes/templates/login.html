@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Login Aspromedica</title>
+	<link rel="stylesheet" th:href="@{bootstrap-5.0.2/dist/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{css/registro/style.css}">
+</head>
+
+<body>
+	<div class="container header-container">
+		<header class="d-flex justify-content-center py-3">
+			<ul class="nav nav-pills">
+				<img th:src="@{/img/aspromedica.png}" alt="Aspromedica">
+			</ul>
+		</header>
+	</div>
+
+	<section class="vh-100">
+		<div class="container py-1 h-100">
+			<div class="row d-flex align-items-center justify-content-center h-100 mt-5">
+				<div class="col-md-8 col-lg-7 col-xl-6">
+					<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+						class="img-fluid" alt="Phone image">
+				</div>
+				<div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+					<form th:action="@{/login}" method="post">
+						<!-- Email input -->
+						<div data-mdb-input-init class="form-outline mb-4">
+							<h5 class="form-label " for="user">Usuario: </h5>
+							<input type="text" id="user" name="username" class="form-control form-control-lg" />
+						</div>
+
+						<!-- Password input -->
+						<div data-mdb-input-init class="form-outline mb-4">
+							<h5 class="form-label" for="pass">Contraseña: </h5>
+							<input type="password" id="pass" name="password" class="form-control form-control-lg" />
+						</div>
+
+
+						<!-- Submit button -->
+						<button type="submit" data-mdb-button-init data-mdb-ripple-init
+							class="btn btn-ingresar btn-lg btn-block w-100">Ingresar</button>
+
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<script th:src="@{/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>
